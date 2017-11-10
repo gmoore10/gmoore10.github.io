@@ -4,10 +4,10 @@
 
 <script>
 export default {
-  name: 'About',
+  name: 'Connect',
   data () {
     return {
-      message: 'This is the about page.'
+      message: 'This is the connect page.'
     }
   }
 }

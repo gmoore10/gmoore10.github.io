@@ -4,10 +4,10 @@
 
 <script>
 export default {
-  name: 'About',
+  name: 'Drive Files',
   data () {
     return {
-      message: 'This is the about page.'
+      message: 'This is the files page.'
     }
   }
 }
