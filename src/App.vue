@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <br />
     <router-link :to="{ name: 'Home' }">Home</router-link>
     <router-link :to="{ name: 'Files' }">Files</router-link>
     <router-link :to="{ name: 'Connect' }">Connect</router-link>
