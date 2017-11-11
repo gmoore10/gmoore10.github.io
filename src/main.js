@@ -9,13 +9,19 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   data: {
-    client_id: '955493671398-tfqdpdjqih875eucq609c1vnc28bpfui.apps.googleusercontent.com',
-    api_key: 'AIzaSyCMn8SUN0i26iSvz-MYpK7vvyMyMAMs67A',
-    discovery_docs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-    scopes: 'https://www.googleapis.com/auth/drive.metadata.readonly'
+    google: null,
+    signedIn: false
+  },
+  methods: {
+    updateSignInStatus(event) {
+      this.signedIn = event
+    },
+    scaffoldAPI(event) {
+      this.google = event
+    }
   },
   el: '#app',
   router,
-  template: '<App/>',
+  template: '<App v-bind:google="google" v-bind:signedIn="signedIn" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)"/>',
   components: { App }
 })

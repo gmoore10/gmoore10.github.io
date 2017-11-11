@@ -12,6 +12,7 @@
 <script>
 
 export default {
+  props: ['google', 'signedIn'],
   name: "Drive",
   data() {
     return {
@@ -32,10 +33,13 @@ export default {
     updateSigninStatus(isSignedIn) {
         console.log(this.$refs)
         if (isSignedIn) {
+            this.$emit('changeSignInStatus', isSignedIn)
+            this.$emit('scaffoldAPI', gapi)
             this.$refs.authorizeButton.style.display = 'none';
             this.$refs.signoutButton.style.display = 'block';
-            //listFiles();
+            this.listFiles();
         } else {
+            this.$emit('changeSignInStatus', isSignedIn)
             this.$refs.authorizeButton.style.display = 'block';
             this.$refs.signoutButton.style.display = 'none';
         }
@@ -45,6 +49,26 @@ export default {
     },
     handleSignoutClick(event) {
         gapi.auth2.getAuthInstance().signOut();
+    },
+    listFiles() {
+        gapi.client.drive.files.list({
+            'pageSize': 25,
+            'fields': "nextPageToken, files(id, name)"
+        }).then(function (response) {
+            //appendPre('Files:');
+            console.log('Files:')
+            var files = response.result.files;
+            if (files && files.length > 0) {
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    //appendPre(file.name + ' (' + file.id + ')');
+                    console.log(file.name + ' (' + file.id + ')')
+                }
+            } else {
+                //appendPre('No files found.');
+                console.log("No files found")
+            }
+        });
     },
     handleClientLoad() {
         let that = this

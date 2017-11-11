@@ -1,6 +1,6 @@
 <template>
   <div>{{message}}
-    <drive />
+    <drive v-bind:google="google" v-bind:signedIn="signedIn" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" />
   </div>
 </template>
 
@@ -9,10 +9,19 @@
 import Drive from '@/api/Drive'
 
 export default {
+  props: ['google', 'signedIn'],
   name: 'Files',
   data () {
     return {
       message: 'This is the files page.'
+    }
+  },
+  methods: {
+    updateSignInStatus(event) {
+      this.$emit('changeSignInStatus', event)
+    },
+    scaffoldAPI(event) {
+      this.$emit('scaffoldAPI', event)
     }
   },
   components: {
