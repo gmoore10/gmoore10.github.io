@@ -10,7 +10,8 @@ Vue.config.productionTip = false
 new Vue({
   data: {
     google: null,
-    signedIn: false
+    signedIn: false,
+    userInfo: null
   },
   methods: {
     updateSignInStatus(event) {
@@ -18,10 +19,13 @@ new Vue({
     },
     scaffoldAPI(event) {
       this.google = event
+    },
+    getUserInfo(event) {
+      this.userInfo = event
     }
   },
   el: '#app',
   router,
-  template: '<App v-bind:google="google" v-bind:signedIn="signedIn" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)"/>',
+  template: '<App v-bind:google="google" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)"/>',
   components: { App }
 })

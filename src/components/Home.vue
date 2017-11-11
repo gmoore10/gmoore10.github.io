@@ -9,7 +9,7 @@ export default {
   name: 'Home',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App TEST'
+      msg: 'Welcome! Please click on the "Files" link to get started.'
     }
   }
 }

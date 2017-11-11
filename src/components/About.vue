@@ -1,9 +1,17 @@
 <template>
-  <div>{{message}}</div>
+  <div>
+    {{message}}
+    <div>Welcome back, {{userInfo.fullName}}!
+      <br />{{userInfo.email}}
+      <br />Space Used: {{userInfo.spaceUsed/1024/1024}} MB
+      <br />Storage Limit: {{userInfo.storageLimit/1024/1024}} MB
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  props: ['google', 'signedIn', 'userInfo'],
   name: 'About',
   data () {
     return {

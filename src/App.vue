@@ -4,14 +4,19 @@
     <router-link :to="{ name: 'Files' }">Files</router-link>
     <router-link :to="{ name: 'Connect' }">Connect</router-link>
     <router-link :to="{ name: 'About' }">About</router-link>
-    <router-view v-bind:google="google" v-bind:signedIn="signedIn" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)"/>
+    <router-view v-bind:google="google" 
+                 v-bind:signedIn="signedIn"
+                 v-bind:userInfo="userInfo"
+                 v-on:changeSignInStatus="updateSignInStatus($event)" 
+                 v-on:scaffoldAPI="scaffoldAPI($event)" 
+                 v-on:getUserInfo="getUserInfo($event)"/>
   </div>
 </template>
 
 <script>
 
 export default {
-  props: ['google', 'signedIn'],
+  props: ['google', 'signedIn', 'userInfo'],
   name: 'app',
   methods: {
     updateSignInStatus(event) {
@@ -19,6 +24,9 @@ export default {
     },
     scaffoldAPI(event) {
       this.$emit('scaffoldAPI', event)
+    },
+    getUserInfo(event) {
+      this.$emit('getUserInfo', event)
     }
   }
 }

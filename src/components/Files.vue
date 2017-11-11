@@ -1,6 +1,11 @@
 <template>
   <div>{{message}}
-    <drive v-bind:google="google" v-bind:signedIn="signedIn" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" />
+    <drive v-bind:google="google" 
+           v-bind:signedIn="signedIn"
+           v-bind:userInfo="userInfo"
+           v-on:changeSignInStatus="updateSignInStatus($event)" 
+           v-on:scaffoldAPI="scaffoldAPI($event)" 
+           v-on:getUserInfo="getUserInfo($event)" />
   </div>
 </template>
 
@@ -9,7 +14,7 @@
 import Drive from '@/api/Drive'
 
 export default {
-  props: ['google', 'signedIn'],
+  props: ['google', 'signedIn', 'userInfo'],
   name: 'Files',
   data () {
     return {
@@ -22,6 +27,9 @@ export default {
     },
     scaffoldAPI(event) {
       this.$emit('scaffoldAPI', event)
+    },
+    getUserInfo(event) {
+      this.$emit('getUserInfo', event)
     }
   },
   components: {

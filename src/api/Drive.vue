@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  props: ['google', 'signedIn'],
+  props: ['google', 'signedIn', 'userInfo'],
   name: "Drive",
   data() {
     return {
@@ -35,6 +35,21 @@ export default {
         if (isSignedIn) {
             this.$emit('changeSignInStatus', isSignedIn)
             this.$emit('scaffoldAPI', gapi)
+
+            console.log(gapi.client.drive.about.get())
+
+            let that = this
+
+            let request = gapi.client.drive.about.get({'fields': 'user, storageQuota'})/*.setFields("user, storageQuota")*/.execute(function(event) {
+                console.log(event)
+                console.log('Current user name: ' + event.user.emailAddress)
+                console.log('Current name: ' + event.user.displayName)
+                console.log('Total quota (bytes): ' + event.storageQuota.limit)
+                console.log('Used quota (bytes): ' + event.storageQuota.usageInDrive)
+
+                that.$emit('getUserInfo', {email: event.user.emailAddress, fullName: event.user.displayName, storageLimit: event.storageQuota.limit, spaceUsed: event.storageQuota.usageInDrive})
+            })
+
             this.$refs.authorizeButton.style.display = 'none';
             this.$refs.signoutButton.style.display = 'block';
             this.listFiles();
