@@ -2,15 +2,19 @@
   "name": "portfolio5",
   "version": "1.0.0",
   "description": "Project and Portfolio 5",
-  "author": "Garrett Moore <gmoore10@fullsail.edu>",
+  "author": "Garrett Moore <gmoore10@student.fullsail.edu>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "build": "node build/build.js"
   },
   "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "0.0.1-security",
+    "googleapis": "^22.2.0",
+    "net": "^1.0.2",
+    "tls": "0.0.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

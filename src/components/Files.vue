@@ -1,14 +1,22 @@
 <template>
-  <div>{{message}}</div>
+  <div>{{message}}
+    <drive />
+  </div>
 </template>
 
 <script>
+
+import Drive from '@/api/Drive'
+
 export default {
-  name: 'Drive Files',
+  name: 'Files',
   data () {
     return {
       message: 'This is the files page.'
     }
+  },
+  components: {
+    Drive
   }
 }
 </script>
