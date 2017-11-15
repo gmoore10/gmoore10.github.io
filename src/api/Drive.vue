@@ -19,15 +19,7 @@ export default {
       msg: "Connect to Drive!"
     };
   },
-  created() {
-    let googleapiScript = document.createElement('script')
-    googleapiScript.setAttribute('src', 'https://apis.google.com/js/api.js')
-    document.head.appendChild(googleapiScript)
-  },
   methods: {
-    changeMessage() {
-      this.msg = "New Message!";
-    },
     signIn() {},
     signOut() {},
     updateSigninStatus(isSignedIn) {
@@ -67,10 +59,14 @@ export default {
     },
     listFiles() {
         gapi.client.drive.files.list({
-            'pageSize': 25,
-            'fields': "nextPageToken, files(id, name)"
+            'pageSize': 50,
+            'folderId': 'root',
+            'fields': "nextPageToken, files(id, name, mimeType, trashed)",
+            'orderBy': 'name',
+            'q': "mimeType = 'application/vnd.google-apps.folder' and parents in 'root'"
         }).then(function (response) {
             //appendPre('Files:');
+            console.log(response.result.files)
             console.log('Files:')
             var files = response.result.files;
             if (files && files.length > 0) {

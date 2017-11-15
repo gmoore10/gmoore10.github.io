@@ -28,7 +28,12 @@ export default {
     getUserInfo(event) {
       this.$emit('getUserInfo', event)
     }
-  }
+  },
+  created() {
+    let googleapiScript = document.createElement('script')
+    googleapiScript.setAttribute('src', 'https://apis.google.com/js/api.js')
+    document.head.appendChild(googleapiScript)
+  },
 }
 </script>
 
