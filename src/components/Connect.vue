@@ -5,12 +5,29 @@
 </template>
 
 <script>
+import Drive from '@/api/Drive'
+
 export default {
   name: 'Connect',
+  props: ['google', 'signedIn', 'userInfo'],
   data () {
     return {
       message: 'This is the connect page.'
     }
+  },
+  methods: {
+    updateSignInStatus(event) {
+      this.$emit('changeSignInStatus', event)
+    },
+    scaffoldAPI(event) {
+      this.$emit('scaffoldAPI', event)
+    },
+    getUserInfo(event) {
+      this.$emit('getUserInfo', event)
+    }
+  },
+  components: {
+    Drive
   }
 }
 </script>

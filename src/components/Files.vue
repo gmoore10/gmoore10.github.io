@@ -1,20 +1,17 @@
 <template>
   <div>{{message}}
-    <drive v-bind:google="google" 
-           v-bind:signedIn="signedIn"
-           v-bind:userInfo="userInfo"
-           v-on:changeSignInStatus="updateSignInStatus($event)" 
-           v-on:scaffoldAPI="scaffoldAPI($event)" 
-           v-on:getUserInfo="getUserInfo($event)" />
   </div>
 </template>
 
 <script>
 
-import Drive from '@/api/Drive'
-
 export default {
   props: ['google', 'signedIn', 'userInfo'],
+  watch: {
+    signedIn: function(oldVal, newVal) {
+        this.listFiles();
+    }
+  },
   name: 'Files',
   data () {
     return {
@@ -22,18 +19,30 @@ export default {
     }
   },
   methods: {
-    updateSignInStatus(event) {
-      this.$emit('changeSignInStatus', event)
-    },
-    scaffoldAPI(event) {
-      this.$emit('scaffoldAPI', event)
-    },
-    getUserInfo(event) {
-      this.$emit('getUserInfo', event)
+    listFiles() {
+        this.google.client.drive.files.list({
+            'pageSize': 50,
+            'folderId': 'root',
+            'fields': "nextPageToken, files(id, name, mimeType, trashed)",
+            'orderBy': 'name',
+            'q': "mimeType = 'application/vnd.google-apps.folder' and parents in 'root'"
+        }).then(function (response) {
+            //appendPre('Files:');
+            console.log(response.result.files)
+            console.log('Files:')
+            var files = response.result.files;
+            if (files && files.length > 0) {
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    //appendPre(file.name + ' (' + file.id + ')');
+                    console.log(file.name + ' (' + file.id + ')')
+                }
+            } else {
+                //appendPre('No files found.');
+                console.log("No files found")
+            }
+        });
     }
-  },
-  components: {
-    Drive
   }
 }
 </script>
