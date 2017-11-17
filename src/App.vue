@@ -6,11 +6,11 @@
     </section>
     <router-link :to="{ name: 'Home' }">Home</router-link>
     <router-link :to="{ name: 'Files' }">Files</router-link>
-    <router-link :to="{ name: 'Connect' }">Connect</router-link>
     <router-link :to="{ name: 'About' }">About</router-link>
     <router-view v-bind:google="google" 
                  v-bind:signedIn="signedIn"
                  v-bind:userInfo="userInfo"
+                 v-bind:chartProperties="chartProperties"
                  v-on:changeSignInStatus="updateSignInStatus($event)" 
                  v-on:scaffoldAPI="scaffoldAPI($event)" 
                  v-on:getUserInfo="getUserInfo($event)"/>
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  props: ['google', 'signedIn', 'userInfo'],
+  props: ['google', 'signedIn', 'userInfo', 'chartProperties'],
   watch: {
     google: function(newVal, oldVal) {
       if(oldVal === null) {

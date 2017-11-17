@@ -5,13 +5,22 @@
       <br />{{userInfo.email}}
       <br />Space Used: {{userInfo.spaceUsed/1024/1024}} MB
       <br />Storage Limit: {{userInfo.storageLimit/1024/1024}} MB
+      <br /><br />
+      <kendo-chart :title="chartProperties.title" 
+                   :legend="chartProperties.legend"
+                   :seriesDefaults="chartProperties.seriesDefaults"
+                   :series="chartProperties.series"
+                   :valueAxis="chartProperties.valueAxis"
+                   :categoryAxis="chartProperties.categoryAxis"
+                   :tooltip="chartProperties.tooltip">
+      </kendo-chart>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['google', 'signedIn', 'userInfo'],
+  props: ['google', 'signedIn', 'userInfo', 'chartProperties'],
   name: 'About',
   data () {
     return {
