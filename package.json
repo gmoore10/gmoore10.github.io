@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@progress/kendo-charts-vue-wrapper": "^2017.3.1116",
+    "@progress/kendo-grid-vue-wrapper": "^2017.3.1116",
     "@progress/kendo-theme-material": "^0.2.3",
     "@progress/kendo-ui": "^2017.3.1116",
     "child_process": "^1.0.2",

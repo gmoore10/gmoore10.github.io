@@ -5,7 +5,7 @@
         <button ref="signoutButton" id="signout-button" style="display: none;">Sign Out</button>
     </section>
     <router-link :to="{ name: 'Home' }">Home</router-link>
-    <router-link :to="{ name: 'Files' }">Files</router-link>
+    <router-link :to="{ name: 'Search' }">Search Files</router-link>
     <router-link :to="{ name: 'About' }">About</router-link>
     <router-view v-bind:google="google" 
                  v-bind:signedIn="signedIn"

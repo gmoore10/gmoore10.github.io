@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import About from '@/components/About'
-import Files from '@/components/Files'
-import Connect from '@/components/Connect'
+import Search from '@/components/Search'
 
 Vue.use(Router)
 
@@ -15,14 +14,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Files',
-      name: 'Files',
-      component: Files
-    },
-    {
-      path: '/Connect',
-      name: 'Connect',
-      component: Connect
+      path: '/Search',
+      name: 'Search',
+      component: Search
     },
     {
       path: '/About',

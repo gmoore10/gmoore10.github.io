@@ -9,6 +9,7 @@ Vue.config.productionTip = false
 import '@progress/kendo-ui'
 import '@progress/kendo-theme-material/dist/all.css'
 import { KendoChart } from '@progress/kendo-charts-vue-wrapper'
+import { KendoGrid } from '@progress/kendo-grid-vue-wrapper'
 
 Vue.component(KendoChart.name, KendoChart)
 
