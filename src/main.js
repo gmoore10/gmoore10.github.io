@@ -7,11 +7,14 @@ import router from './router'
 Vue.config.productionTip = false
 
 import '@progress/kendo-ui'
-import '@progress/kendo-theme-material/dist/all.css'
+import '@progress/kendo-theme-default/dist/all.css'
 import { KendoChart } from '@progress/kendo-charts-vue-wrapper'
-import { KendoGrid } from '@progress/kendo-grid-vue-wrapper'
+import { KendoGrid, KendoGridInstaller } from '@progress/kendo-grid-vue-wrapper'
+
+Vue.use(KendoGridInstaller)
 
 Vue.component(KendoChart.name, KendoChart)
+Vue.component(KendoGrid.name, KendoGrid)
 
 /* eslint-disable no-new */
 new Vue({

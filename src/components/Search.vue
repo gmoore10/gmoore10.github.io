@@ -1,5 +1,12 @@
 <template>
-  <div>{{message}}
+  <div>
+    <input type="text" v-on:keyup.enter="searchFiles" v-model="searchText" ref="searchInput" :disabled="signedIn === false" />
+    <input type="submit" ref="searchSubmit" :disabled="signedIn === false" />
+    <br /><span v-if="!signedIn" ref="loginMessage">Please log in to search your drive.</span>
+    <br />
+    <kendo-grid :data-source="searchDataSource" :sortable="true">
+
+    </kendo-grid>
   </div>
 </template>
 
@@ -9,28 +16,40 @@ export default {
   props: ['google', 'signedIn', 'userInfo'],
   watch: {
     signedIn: function(oldVal, newVal) {
-        this.listFiles();
+      this.$refs.searchSubmit.onclick = this.searchFiles;
+    },
+    google: function(newVal, oldVal) {
+      if(oldVal === null && newVal !== null) {
+        console.log("GOOGLE WAS INSTANTIATED")
+      }
     }
   },
   name: 'Files',
   data () {
     return {
-      message: 'This is the files page.'
+      message: 'This is the files page.',
+      searchText: null,
+      searchDataSource: [],
     }
   },
   methods: {
-    listFiles() {
+    searchFiles() {
+      this.listFiles(this.searchText)
+    },
+    listFiles(searchString) {
+      let that = this
         this.google.client.drive.files.list({
             'pageSize': 50,
             'folderId': 'root',
             'fields': "nextPageToken, files(id, name, mimeType, trashed)",
             'orderBy': 'name',
-            'q': "mimeType = 'application/vnd.google-apps.folder' and parents in 'root'"
+            'q': "name contains '" + searchString + "'"
         }).then(function (response) {
             //appendPre('Files:');
-            console.log(response.result.files)
-            console.log('Files:')
+            //console.log(response.result.files)
+            //console.log('Files:')
             var files = response.result.files;
+            that.searchDataSource = files
             if (files && files.length > 0) {
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
@@ -49,6 +68,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h1, h2 {
   font-weight: normal;
 }
