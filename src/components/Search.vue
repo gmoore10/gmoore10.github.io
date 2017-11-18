@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="search">
     <input type="text" v-on:keyup.enter="searchFiles" v-model="searchText" ref="searchInput" :disabled="signedIn === false" />
     <input type="submit" ref="searchSubmit" :disabled="signedIn === false" />
     <br /><span v-if="!signedIn" ref="loginMessage">Please log in to search your drive.</span>
     <br />
-    <kendo-grid :data-source="searchDataSource" :sortable="true">
+    <kendo-grid v-if="searchText" :data-source="searchDataSource" :sortable="true">
 
     </kendo-grid>
   </div>
@@ -57,7 +57,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+#search {
+  margin-top: 20px;
+}
 h1, h2 {
   font-weight: normal;
 }

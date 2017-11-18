@@ -1,12 +1,10 @@
 <template>
   <div id="app">
-    <section>
-        <button ref="authorizeButton" id="authorize-button" style="display: none;">Authorize</button>
-        <button ref="signoutButton" id="signout-button" style="display: none;">Sign Out</button>
-    </section>
-    <router-link :to="{ name: 'Home' }">Home</router-link>
-    <router-link :to="{ name: 'Search' }">Search Files</router-link>
-    <router-link :to="{ name: 'About' }">About</router-link>
+    <router-link class="router-link" exact active-class="router-link-active" :to="{ name: 'Home' }">Home</router-link>
+    <router-link class="router-link" exact active-class="router-link-active" :to="{ name: 'Search' }">Search Files</router-link>
+    <router-link class="router-link" exact active-class="router-link-active" :to="{ name: 'About' }">About</router-link>
+    <button ref="authorizeButton" id="authorize-button" style="display: none;">Log In</button>
+    <button ref="signoutButton" id="signout-button" style="display: none;">Log Out</button>
     <router-view v-bind:google="google" 
                  v-bind:signedIn="signedIn"
                  v-bind:userInfo="userInfo"
@@ -36,10 +34,10 @@ export default {
             })
 
             this.$refs.authorizeButton.style.display = 'none';
-            this.$refs.signoutButton.style.display = 'block';
+            this.$refs.signoutButton.style.display = 'inline-block';
         } else {
             this.$emit('changeSignInStatus', isSignedIn)
-            this.$refs.authorizeButton.style.display = 'block';
+            this.$refs.authorizeButton.style.display = 'inline-block';
             this.$refs.signoutButton.style.display = 'none';
         }
     },
@@ -91,17 +89,6 @@ export default {
       }
     }, 100)
   }
-  // methods: {
-  //   updateSignInStatus(event) {
-  //     this.$emit('changeSignInStatus', event)
-  //   },
-  //   scaffoldAPI(event) {
-  //     this.$emit('scaffoldAPI', event)
-  //   },
-  //   getUserInfo(event) {
-  //     this.$emit('getUserInfo', event)
-  //   }
-  // },
 }
 </script>
 
@@ -113,5 +100,21 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#app > button {
+  display: inline-block;
+}
+
+#app > button, .router-link {
+  color: white;
+  background-color: #9196B5;
+  padding: 5px;
+  margin-right: -5px;
+}
+
+.router-link-active {
+  color: white;
+  background-color: #3f51b5;
 }
 </style>

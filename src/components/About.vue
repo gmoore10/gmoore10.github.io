@@ -1,11 +1,6 @@
 <template>
   <div v-if="userInfo">
-    {{message}}
     <div>Welcome back, {{userInfo ? userInfo.fullName : ""}}!
-      <br />{{userInfo ? userInfo.email : ""}}
-      <br />Space Used: {{userInfo ? userInfo.spaceUsed/1024/1024 : ""}} MB
-      <br />Storage Limit: {{userInfo ? userInfo.storageLimit/1024/1024 : ""}} MB
-      <br /><br />
       <kendo-chart :title="chartProperties.title" 
                    :legend="chartProperties.legend"
                    :seriesDefaults="chartProperties.seriesDefaults"

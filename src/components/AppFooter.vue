@@ -1,17 +1,12 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>Footer</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
-  data () {
-    return {
-      msg: 'Welcome! Please click on the "Search Files" link to get started.'
-    }
-  }
+  name: 'AppFooter'
 }
 </script>
 

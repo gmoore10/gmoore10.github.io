@@ -3,11 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import AppHeader from './components/AppHeader'
+import AppFooter from './components/AppFooter'
 
 Vue.config.productionTip = false
 
 import '@progress/kendo-ui'
-import '@progress/kendo-theme-material/dist/all.css'
+import '@progress/kendo-theme-default/dist/all.css'
 import { KendoChart } from '@progress/kendo-charts-vue-wrapper'
 import { KendoGrid, KendoGridInstaller } from '@progress/kendo-grid-vue-wrapper'
 
@@ -71,6 +73,6 @@ new Vue({
   },
   el: '#app',
   router,
-  template: '<App v-bind:google="google" v-bind:chartProperties="chartProperties" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)" v-on:updateSpaceChart="updateSpaceChart($event)"/>',
-  components: { App, KendoChart }
+  template: '<div><AppHeader></AppHeader><App v-bind:google="google" v-bind:chartProperties="chartProperties" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)" v-on:updateSpaceChart="updateSpaceChart($event)"/><AppFooter></AppFooter></div>',
+  components: { App, AppHeader, AppFooter }
 })
