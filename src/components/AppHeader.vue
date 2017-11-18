@@ -14,6 +14,9 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  display: block;
+  text-align: center;
+  margin: auto;
 }
 
 ul {

@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import AppHeader from './components/AppHeader'
-import AppFooter from './components/AppFooter'
 
 Vue.config.productionTip = false
 
@@ -73,6 +72,6 @@ new Vue({
   },
   el: '#app',
   router,
-  template: '<div><AppHeader></AppHeader><App v-bind:google="google" v-bind:chartProperties="chartProperties" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)" v-on:updateSpaceChart="updateSpaceChart($event)"/><AppFooter></AppFooter></div>',
-  components: { App, AppHeader, AppFooter }
+  template: '<div><AppHeader></AppHeader><App v-bind:google="google" v-bind:chartProperties="chartProperties" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)" v-on:updateSpaceChart="updateSpaceChart($event)"/></div>',
+  components: { App, AppHeader }
 })

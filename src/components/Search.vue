@@ -1,11 +1,11 @@
 <template>
   <div id="search">
     <input type="text" v-on:keyup.enter="searchFiles" v-model="searchText" ref="searchInput" :disabled="signedIn === false" />
-    <input type="submit" ref="searchSubmit" :disabled="signedIn === false" />
+    <input type="submit" ref="searchSubmit" value="Search" />
     <br /><span v-if="!signedIn" ref="loginMessage">Please log in to search your drive.</span>
     <br />
     <kendo-grid v-if="searchText" :data-source="searchDataSource" :sortable="true">
-
+      <kendo-grid-column :encoded="false" field="name" title="File Name (Click to Download)"></kendo-grid-column>
     </kendo-grid>
   </div>
 </template>
@@ -41,6 +41,11 @@ export default {
             'q': "name contains '" + searchString + "'"
         }).then(function (response) {
             var files = response.result.files;
+
+            files.forEach((e) => {
+              e.name = '<a target="_blank" href="https://drive.google.com/open?id=' + e.id + '">' + e.name + "</a>"
+            })
+
             that.searchDataSource = files
             if (files && files.length > 0) {
                 for (var i = 0; i < files.length; i++) {
