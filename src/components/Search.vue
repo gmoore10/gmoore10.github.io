@@ -18,11 +18,6 @@ export default {
     signedIn: function(oldVal, newVal) {
       this.$refs.searchSubmit.onclick = this.searchFiles;
     },
-    google: function(newVal, oldVal) {
-      if(oldVal === null && newVal !== null) {
-        console.log("GOOGLE WAS INSTANTIATED")
-      }
-    }
   },
   name: 'Files',
   data () {
@@ -45,19 +40,13 @@ export default {
             'orderBy': 'name',
             'q': "name contains '" + searchString + "'"
         }).then(function (response) {
-            //appendPre('Files:');
-            //console.log(response.result.files)
-            //console.log('Files:')
             var files = response.result.files;
             that.searchDataSource = files
             if (files && files.length > 0) {
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
-                    //appendPre(file.name + ' (' + file.id + ')');
-                    console.log(file.name + ' (' + file.id + ')')
                 }
             } else {
-                //appendPre('No files found.');
                 console.log("No files found")
             }
         });

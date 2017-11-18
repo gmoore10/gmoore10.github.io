@@ -7,7 +7,7 @@ import router from './router'
 Vue.config.productionTip = false
 
 import '@progress/kendo-ui'
-import '@progress/kendo-theme-default/dist/all.css'
+import '@progress/kendo-theme-material/dist/all.css'
 import { KendoChart } from '@progress/kendo-charts-vue-wrapper'
 import { KendoGrid, KendoGridInstaller } from '@progress/kendo-grid-vue-wrapper'
 
@@ -24,51 +24,53 @@ new Vue({
     userInfo: null,
     chartProperties: {
       title: {
-        text: "Top 15 largest files"
+        text: "Drive Space Used vs. Space Available"
       },
       legend: {
         position: "bottom"
       },
       seriesDefaults: {
-        type: "column"
+        labels: {
+          visible: true,
+          background: "transparent",
+          template: "#= category#: \n #= value # GB", 
+          center: "50%"
+      }
       },
       series: [{
-        name: "Total Visits",
-        data: [56000, 63000, 74000, 91000, 117000, 138000]
-      }, {
-        name: "Unique visitors",
-        data: [52000, 34000, 23000, 48000, 67000, 83000]
+        type: "pie",
+        data: [0, 0]
       }],
       valueAxis: {
         line: {
           visible: false
         }
       },
-      categoryAxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-        majorGridLines: {
-          visible: false
-        }
-      },
       tooltip: {
         visible: true,
-        format: "{0}"
-      }
+        format: "{0} GB"
+      },
+      theme: "Material"
     }
   },
   methods: {
     updateSignInStatus(event) {
       this.signedIn = event
+      event ? true : this.userInfo = null
     },
     scaffoldAPI(event) {
       this.google = event
     },
     getUserInfo(event) {
       this.userInfo = event
+    },
+    updateSpaceChart(event) {
+      console.log("MASTER SPACE CHART UPDATED")
+      this.chartProperties.series[0].data = [{ category: event[0].type, value: parseFloat(event[0].amount/1024/1024/1024).toFixed(2)}, {category: event[1].type, value: parseFloat(event[1].amount/1024/1024/1024).toFixed(2)}]
     }
   },
   el: '#app',
   router,
-  template: '<App v-bind:google="google" v-bind:chartProperties="chartProperties" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)"/>',
+  template: '<App v-bind:google="google" v-bind:chartProperties="chartProperties" v-bind:signedIn="signedIn" v-bind:userInfo="userInfo" v-on:changeSignInStatus="updateSignInStatus($event)" v-on:scaffoldAPI="scaffoldAPI($event)" v-on:getUserInfo="getUserInfo($event)" v-on:updateSpaceChart="updateSpaceChart($event)"/>',
   components: { App, KendoChart }
 })

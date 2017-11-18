@@ -1,18 +1,17 @@
 <template>
-  <div>
+  <div v-if="userInfo">
     {{message}}
-    <div>Welcome back, {{userInfo.fullName}}!
-      <br />{{userInfo.email}}
-      <br />Space Used: {{userInfo.spaceUsed/1024/1024}} MB
-      <br />Storage Limit: {{userInfo.storageLimit/1024/1024}} MB
+    <div>Welcome back, {{userInfo ? userInfo.fullName : ""}}!
+      <br />{{userInfo ? userInfo.email : ""}}
+      <br />Space Used: {{userInfo ? userInfo.spaceUsed/1024/1024 : ""}} MB
+      <br />Storage Limit: {{userInfo ? userInfo.storageLimit/1024/1024 : ""}} MB
       <br /><br />
       <kendo-chart :title="chartProperties.title" 
                    :legend="chartProperties.legend"
                    :seriesDefaults="chartProperties.seriesDefaults"
                    :series="chartProperties.series"
-                   :valueAxis="chartProperties.valueAxis"
-                   :categoryAxis="chartProperties.categoryAxis"
-                   :tooltip="chartProperties.tooltip">
+                   :tooltip="chartProperties.tooltip"
+                   ref="spaceChart">
       </kendo-chart>
     </div>
   </div>
@@ -21,6 +20,13 @@
 <script>
 export default {
   props: ['google', 'signedIn', 'userInfo', 'chartProperties'],
+  watch: {
+    userInfo: function(newVal, oldVal) {
+      console.log("Chart Properties changed in About.vue!")
+      console.log(this.$refs)
+      this.$emit('updateCharts', true)
+    }
+  },
   name: 'About',
   data () {
     return {

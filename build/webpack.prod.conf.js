@@ -14,10 +14,11 @@ const env = config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
+    rules: 
+      utils.styleLoaders({
+        sourceMap: config.build.productionSourceMap,
+        extract: true
+      })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -94,7 +95,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
   ]
 })
 

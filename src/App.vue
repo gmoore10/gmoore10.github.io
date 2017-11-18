@@ -13,40 +13,26 @@
                  v-bind:chartProperties="chartProperties"
                  v-on:changeSignInStatus="updateSignInStatus($event)" 
                  v-on:scaffoldAPI="scaffoldAPI($event)" 
-                 v-on:getUserInfo="getUserInfo($event)"/>
+                 v-on:getUserInfo="getUserInfo($event)"
+                 v-on:updateSpaceChart="updateSpaceChart($event)"/>
   </div>
 </template>
 
 <script>
 export default {
   props: ['google', 'signedIn', 'userInfo', 'chartProperties'],
-  watch: {
-    google: function(newVal, oldVal) {
-      if(oldVal === null) {
-        console.log("GOOGLE WAS INSTANTIATED")
-      }
-    }
-  },
   name: 'app',
   methods: {
     updateSigninStatus(isSignedIn) {
-        console.log(this.$refs)
         if (isSignedIn) {
             this.$emit('changeSignInStatus', isSignedIn)
             this.$emit('scaffoldAPI', gapi)
 
-            console.log(gapi.client.drive.about.get())
-
             let that = this
 
             let request = gapi.client.drive.about.get({'fields': 'user, storageQuota'})/*.setFields("user, storageQuota")*/.execute(function(event) {
-                console.log(event)
-                console.log('Current user name: ' + event.user.emailAddress)
-                console.log('Current name: ' + event.user.displayName)
-                console.log('Total quota (bytes): ' + event.storageQuota.limit)
-                console.log('Used quota (bytes): ' + event.storageQuota.usageInDrive)
-
                 that.$emit('getUserInfo', {email: event.user.emailAddress, fullName: event.user.displayName, storageLimit: event.storageQuota.limit, spaceUsed: event.storageQuota.usageInDrive})
+                that.$emit('updateSpaceChart', [{type: 'Space Used', amount: parseInt(event.storageQuota.usageInDrive)}, {type: 'Space Available', amount: parseInt(event.storageQuota.limit - event.storageQuota.usageInDrive)}])
             })
 
             this.$refs.authorizeButton.style.display = 'none';
