@@ -7,6 +7,7 @@ import AppHeader from './components/AppHeader'
 
 Vue.config.productionTip = false
 
+//Kendo Framework Imports
 import '@progress/kendo-ui'
 import '@progress/kendo-theme-default/dist/all.css'
 import { KendoChart } from '@progress/kendo-charts-vue-wrapper'
@@ -20,9 +21,12 @@ Vue.component(KendoGrid.name, KendoGrid)
 /* eslint-disable no-new */
 new Vue({
   data: {
+    //Used for the google api configuration after login
     google: null,
     signedIn: false,
+    //stores user info and quotas
     userInfo: null,
+    //Used on about page to render chart.
     chartProperties: {
       title: {
         text: "Drive Space Used vs. Space Available"
@@ -66,7 +70,11 @@ new Vue({
       this.userInfo = event
     },
     updateSpaceChart(event) {
-      console.log("MASTER SPACE CHART UPDATED")
+      //Setup Chart Data Source.
+      //None of the actual data source implementations worked, so I
+      //resored to just manually editing the chartProperties state.
+      //Not ideal as the actual datasource setup is much more useful.
+      //I think the vuejs implementation of kendoui is incomplete.
       this.chartProperties.series[0].data = [{ category: event[0].type, value: parseFloat(event[0].amount/1024/1024/1024).toFixed(2)}, {category: event[1].type, value: parseFloat(event[1].amount/1024/1024/1024).toFixed(2)}]
     }
   },

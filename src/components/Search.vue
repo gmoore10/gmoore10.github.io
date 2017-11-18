@@ -32,6 +32,7 @@ export default {
       this.listFiles(this.searchText)
     },
     listFiles(searchString) {
+      //Promises screw up the this keyword, so convert this to that.
       let that = this
         this.google.client.drive.files.list({
             'pageSize': 50,
@@ -42,6 +43,7 @@ export default {
         }).then(function (response) {
             var files = response.result.files;
 
+            //Convert name into downloadable link
             files.forEach((e) => {
               e.name = '<a target="_blank" href="https://drive.google.com/open?id=' + e.id + '">' + e.name + "</a>"
             })
